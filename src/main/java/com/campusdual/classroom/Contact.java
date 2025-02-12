@@ -3,7 +3,6 @@ package com.campusdual.classroom;
 import com.campusdual.util.Utils;
 
 import java.text.Normalizer;
-import java.util.List;
 
 public class Contact implements ICallActions {
 
@@ -11,7 +10,7 @@ public class Contact implements ICallActions {
   public String surnames;
   public String phone;
   public String code;
-  public List<String> secondaryPhones;
+
 
   public Contact(String name, String surnames, String phone) {
     this.name = name;
@@ -24,32 +23,16 @@ public class Contact implements ICallActions {
     return this.name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public String getSurnames() {
     return this.surnames;
-  }
-
-  public void setSurnames(String surname) {
-    this.surnames = surname;
   }
 
   public String getPhone() {
     return this.phone;
   }
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
-
   public String getCode() {
     return this.code;
-  }
-
-  public void setCode(String code) {
-    this.code = code;
   }
 
   private String calculateCode() {
