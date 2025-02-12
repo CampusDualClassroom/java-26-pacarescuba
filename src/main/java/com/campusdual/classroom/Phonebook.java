@@ -13,99 +13,63 @@ public class Phonebook {
     this.contacts = new HashMap<>();
   }
 
-  public static void buildMainMenu() {
-    boolean isExit = false;
-    boolean isValid = false;
-    Phonebook phonebook = new Phonebook();
+  public void buildMainMenu() {
+    boolean isExitPressed = false;
     do {
       System.out.println("\na) Añadir contacto al listín telefónico\nb) Mostrar contactos del listín telefónico" +
-              "\nc) Seleccionar contacto\nd) Eliminar contacto\ne) Salir del menú\n");
-
-      Contact contact;
+              "\nc) Seleccionar contacto\nd) Eliminar contacto\nexit) Salir del programa\n");
 
 
       switch (Utils.string("Elige una opción -> ")) {
         case "a":
         case "A":
-          contact = new Contact(Utils.string("Nombre del contacto -> "), Utils.string("Apellidos del contacto -> "),
-                  Utils.string("Teléfono del contacto -> "));
-          System.out.println(contact.getCode());
-          System.out.println(contact.getName());
-          System.out.println(contact.getSurnames());
-          System.out.println(contact.getPhone());
-          System.out.println(phonebook.getData().size());
-          phonebook.addContact(contact);
-          phonebook.showPhonebook();
-          System.out.println(phonebook.getData().size());
+          addContact(createContact());
           break;
 
         case "b":
         case "B":
-          phonebook.showPhonebook();
+          showPhonebook();
           break;
 
         case "c":
         case "C":
-          do {
-            String c = Utils.string("Nickname del contacto -> ");
-            if (phonebook.getData().containsKey(c)) {
-              contact = phonebook.getData().get(c);
-
-              System.out.println("\na) Llamar a otro número\nb) Llamarme a mí mismo\n");
-
-              switch (Utils.character("Elige una opción -> ")) {
-                case 'a':
-                case 'A':
-                  contact.callOtherNumber(Utils.string("Escribe el número al que llamas -> "));
-                  break;
-
-                case 'b':
-                case 'B':
-                  contact.callMyNumber();
-                  break;
-
-                default:
-                  System.out.println("Introduzca un valor válido");
-                  break;
-
-              }
-              isValid = true;
-            } else {
-              isValid = false;
-              System.out.println("Contacto no encontrado");
-            }
-          } while (!isValid);
+          Contact contact = getSingleContact(Utils.string("Código del contacto ->"));
+          if (contact == null) {
+            System.err.println("Contacto no encontrado");
+          } else {
+            contact.contactOptions();
+          }
           break;
 
         case "d":
         case "D":
-
-          do {
-            String c = Utils.string("Nickname del contacto -> ");
-            if (phonebook.getData().containsKey(c)) {
-              phonebook.deleteContact(c);
-              isValid = true;
-            } else {
-              isValid = false;
-              System.out.println("Contacto no encontrado");
-            }
-          } while (!isValid);
-
+          String c = Utils.string("Nickname del contacto -> ");
+          deleteContact(c);
           break;
 
-        case "e":
-        case "E":
-          isExit = true;
+        case "exit":
+        case "Exit":
+          isExitPressed = true;
           break;
 
         default:
           System.out.println("Introduzca un valor válido");
       }
-    } while (!isExit);
+      Utils.string("Presiona INTRO para continuar");
+    } while (!isExitPressed);
   }
 
   public Map<String, Contact> getData() {
-    return contacts;
+    return this.contacts;
+  }
+
+  private Contact createContact() {
+    return new Contact(Utils.string("Nombre del contacto -> "), Utils.string("Apellidos del contacto -> "),
+            Utils.string("Teléfono del contacto -> "));
+  }
+
+  private Contact getSingleContact(String contactCode) {
+    return this.contacts.get(contactCode);
   }
 
   public void addContact(Contact contact) {
@@ -117,9 +81,13 @@ public class Phonebook {
   }
 
   public void showPhonebook() {
-    for (Contact contact : this.contacts.values()) {
-      System.out.println("nickname: " + contact.getCode() + "\nNombre: " + contact.getName() + "\nApellidos: "
-              + contact.getSurnames() + "\nTeléfono: " + contact.getPhone());
+    if (contacts.isEmpty()) {
+      System.out.println("El listín telefónico no tiene ningún contacto");
+    } else {
+      for (Contact contact : this.contacts.values()) {
+        System.out.println("nickname: " + contact.getCode() + "\nNombre: " + contact.getName() + "\nApellidos: "
+                + contact.getSurnames() + "\nTeléfono: " + contact.getPhone());
+      }
     }
   }
 }
