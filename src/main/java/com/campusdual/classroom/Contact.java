@@ -44,7 +44,7 @@ public class Contact implements ICallActions {
 
   @Override
   public void callMyNumber() {
-    System.out.println("Te estás llamando a tí mismo");
+    System.out.println("Te estás llamando a tí mismo, " + getName() + " " + getSurnames() + ". Tu número de teléfono es: " + getPhone());
   }
 
   @Override
