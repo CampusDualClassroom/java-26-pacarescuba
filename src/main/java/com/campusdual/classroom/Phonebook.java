@@ -16,23 +16,20 @@ public class Phonebook {
   public void buildMainMenu() {
     boolean isExitPressed = false;
     do {
-      System.out.println("\na) Añadir contacto al listín telefónico\nb) Mostrar contactos del listín telefónico" +
-              "\nc) Seleccionar contacto\nd) Eliminar contacto\nexit) Salir del programa\n");
+      System.out.println("\n1) Añadir contacto al listín telefónico\n2) Mostrar contactos del listín telefónico" +
+              "\n3) Seleccionar contacto\n4) Eliminar contacto\nexit) Salir del programa\n");
 
 
       switch (Utils.string("Elige una opción -> ")) {
-        case "a":
-        case "A":
+        case "1":
           addContact(createContact());
           break;
 
-        case "b":
-        case "B":
+        case "2":
           showPhonebook();
           break;
 
-        case "c":
-        case "C":
+        case "3":
           Contact contact = getSingleContact(Utils.string("Código del contacto ->"));
           if (contact == null) {
             System.err.println("Contacto no encontrado");
@@ -41,8 +38,7 @@ public class Phonebook {
           }
           break;
 
-        case "d":
-        case "D":
+        case "4":
           String c = Utils.string("Nickname del contacto -> ");
           deleteContact(c);
           break;

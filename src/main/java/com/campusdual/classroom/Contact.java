@@ -59,21 +59,18 @@ public class Contact implements ICallActions {
   }
 
   public void contactOptions() {
-    System.out.println("\na) Llamar a otro número\nb) Llamarme a mí mismo\nc) Mostrar detalles\n");
+    System.out.println("\n1) Llamar a otro número\n2) Llamarme a mí mismo\n3) Mostrar detalles\n");
 
     switch (Utils.string("Elige una opción -> ")) {
-      case "a":
-      case "A":
+      case "1":
         callOtherNumber(Utils.string("Escribe el número al que llamas -> "));
         break;
 
-      case "b":
-      case "B":
+      case "2":
         callMyNumber();
         break;
 
-      case "c":
-      case "C":
+      case "3":
         showContactDetails();
         break;
 
